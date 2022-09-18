@@ -3,12 +3,11 @@ package com.simple.mvi.features.home
 import com.simple.data.managers.CharactersManager
 import com.simple.mvi.common.BaseViewModel
 import kotlinx.coroutines.flow.collect
-import javax.inject.Inject
 
 /**
  * Created by Rim Gazzah on 8/26/20.
  **/
-class HomeViewModel @Inject constructor(private val dataManager: CharactersManager) :
+class HomeViewModel(private val dataManager: CharactersManager) :
     BaseViewModel<HomeIntent, HomeAction, HomeState>() {
     override fun intentToAction(intent: HomeIntent): HomeAction {
         return when (intent) {

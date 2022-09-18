@@ -46,15 +46,16 @@ dependencies {
     implementation deps.androidx.viewModel
     implementation deps.coil
     implementation deps.androidx.liveData
-    implementation deps.dagger.common
     implementation deps.squareup.converter_gson
     implementation deps.stetho
     implementation deps.material_component
-    implementation deps.dagger.common
-    kapt deps.dagger.compiler
+    implementation deps.koin.lib
     testImplementation project(path: ':presentation')
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation deps.koin.test
+    testImplementation deps.koin.test_junit
+    testImplementation "org.mockito:mockito-inline:4.5.1"
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 }

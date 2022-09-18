@@ -1,31 +1,19 @@
 package com.simple.mvi.features.home
 
-import com.simple.data.common.Result
 import com.simple.data.managers.CharactersManager
 import com.simple.domain.entities.Persona
-import kotlinx.coroutines.flow.Flow
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mockito.mock
 
 class HomeViewModelTest {
-
-    // stub
-    private val dataManager: CharactersManager = object : CharactersManager {
-        override fun getAllCharacters(): Flow<Result<List<Persona>>> {
-            TODO("Not yet implemented")
-        }
-
-        override fun searchCharacters(name: String): Flow<Result<List<Persona>>> {
-            TODO("Not yet implemented")
-        }
-    }
 
     private lateinit var viewModel: HomeViewModel
 
     @Before
     fun setUp() {
-        viewModel = HomeViewModel(dataManager)
+        viewModel = HomeViewModel(mock(CharactersManager::class.java))
     }
 
     @Test
