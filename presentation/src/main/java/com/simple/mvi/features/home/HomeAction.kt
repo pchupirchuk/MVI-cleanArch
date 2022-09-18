@@ -1,5 +1,6 @@
 package com.simple.mvi.features.home
 
+import com.simple.domain.entities.Persona
 import com.simple.mvi.common.ViewAction
 
 /**
@@ -8,4 +9,5 @@ import com.simple.mvi.common.ViewAction
 sealed class HomeAction : ViewAction {
     data class SearchCharacters(val name: String) : HomeAction()
     object AllCharacters : HomeAction()
+    data class GetCharacterInfo(val persona: Persona) : HomeAction()
 }
