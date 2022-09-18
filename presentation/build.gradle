@@ -49,8 +49,11 @@ dependencies {
     implementation deps.squareup.converter_gson
     implementation deps.stetho
     implementation deps.material_component
-    implementation deps.koin
+    implementation deps.koin.lib
     testImplementation project(path: ':presentation')
+    testImplementation deps.koin.test
+    testImplementation deps.koin.test_junit
+    testImplementation "org.mockito:mockito-inline:4.5.1"
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
