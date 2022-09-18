@@ -10,7 +10,7 @@ Code Structure
 
 Used Libs 
 ---------------
-* [Dagger2](https://dagger.dev/users-guide) 
+* [Koin](https://insert-koin.io) 
 * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) 
 * [Coroutines](https://developer.android.com/kotlin/coroutines) 
 * [Coroutines-flow](https://kotlinlang.org/docs/reference/coroutines/flow.html) 

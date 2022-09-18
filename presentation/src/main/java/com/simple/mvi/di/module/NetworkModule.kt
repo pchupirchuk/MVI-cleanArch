@@ -1,60 +1,42 @@
 package com.simple.mvi.di.module
 
-import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.GsonBuilder
 import com.simple.data.services.ApiService
 import com.simple.mvi.BuildConfig
-import dagger.Module
-import dagger.Provides
 import okhttp3.Cache
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
-/**
- * Created by Rim Gazzah on 8/19/20.
- **/
-@Module
-class NetworkModule {
+val networkModule = module {
 
-    @Provides
-    @Singleton
-    fun providesOkhttpCache(context: Context): Cache {
-        return Cache(context.cacheDir, 1024)
+    single<Cache> {
+        Cache(androidContext().cacheDir, 1024)
     }
 
-    @Provides
-    @Singleton
-    fun providesOkHttpClient(cache: Cache): OkHttpClient {
+    single<OkHttpClient> {
         val client = OkHttpClient.Builder()
-            .cache(cache)
+            .cache(get())
             .connectTimeout(6, TimeUnit.SECONDS)
             .writeTimeout(6, TimeUnit.SECONDS)
             .readTimeout(6, TimeUnit.SECONDS)
-            .cache(cache)
             .addNetworkInterceptor(StethoInterceptor())
-
-        return client.build()
+        client.build()
     }
 
-    @Provides
-    @Singleton
-    fun providesRetrofit(
-        okHttpClient: OkHttpClient
-    ): Retrofit {
+    single<Retrofit> {
         val gsonBuilder = GsonBuilder()
-        return Retrofit.Builder().baseUrl(BuildConfig.API_BASE_URL)
+        Retrofit.Builder().baseUrl(BuildConfig.API_BASE_URL)
             .addConverterFactory((GsonConverterFactory.create(gsonBuilder.create())))
-            .client(okHttpClient)
+            .client(get())
             .build()
     }
 
-    @Provides
-    @Singleton
-    fun providesApiService(retrofit: Retrofit) : ApiService {
-        return  retrofit.create(ApiService::class.java)
+    single<ApiService> {
+        get<Retrofit>().create(ApiService::class.java)
     }
 }
