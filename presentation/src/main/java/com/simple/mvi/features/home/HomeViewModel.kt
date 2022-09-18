@@ -2,10 +2,6 @@ package com.simple.mvi.features.home
 
 import com.simple.data.managers.CharactersManager
 import com.simple.mvi.common.BaseViewModel
-import com.simple.mvi.features.home.HomeAction
-import com.simple.mvi.features.home.HomeIntent
-import com.simple.mvi.features.home.HomeState
-import com.simple.mvi.features.home.reduce
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
@@ -19,6 +15,7 @@ class HomeViewModel @Inject constructor(private val dataManager: CharactersManag
             is HomeIntent.LoadAllCharacters -> HomeAction.AllCharacters
             is HomeIntent.ClearSearch -> HomeAction.AllCharacters
             is HomeIntent.SearchCharacter -> HomeAction.SearchCharacters(intent.name)
+            is HomeIntent.ViewCharacter -> HomeAction.GetCharacterInfo(intent.persona)
         }
     }
 
@@ -35,6 +32,10 @@ class HomeViewModel @Inject constructor(private val dataManager: CharactersManag
                     dataManager.searchCharacters(action.name).collect {
                         mState.postValue(it.reduce(true))
                     }
+                }
+                is HomeAction.GetCharacterInfo -> {
+                    // could get additional data from dataManager here
+                    mState.postValue(HomeState.Details(action.persona))
                 }
             }
         }

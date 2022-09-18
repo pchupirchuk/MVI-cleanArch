@@ -45,4 +45,13 @@ class HomeViewModelTest {
         val action = viewModel.intentToAction(HomeIntent.SearchCharacter("query"))
         assertEquals(HomeAction.SearchCharacters("query"), action)
     }
+
+    @Test
+    fun `ViewCharacter intent should be interpreted as GetCharacterInfo action`() {
+        val persona = Persona(1,"","","","","")
+        val intent = HomeIntent.ViewCharacter(persona)
+
+        val action = viewModel.intentToAction(intent)
+        assertEquals(HomeAction.GetCharacterInfo(persona), action)
+    }
 }

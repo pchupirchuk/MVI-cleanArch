@@ -12,10 +12,12 @@ import kotlinx.android.synthetic.main.item_character.view.*
 import com.simple.mvi.R
 
 
-class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>() {
+class CharactersAdapter(
+    private val onClick : (Persona) -> Unit,
+) : RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>() {
     private var charactersList: List<Persona> = ArrayList()
 
-    class CharactersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CharactersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageViewCharacterImage: ImageView = itemView.item_character_image
         private val textViewCharacterName: TextView = itemView.item_character_name
 
@@ -24,6 +26,7 @@ class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharactersViewH
                 textViewCharacterName.text = name
                 imageViewCharacterImage.load(image)
             }
+            itemView.setOnClickListener { onClick(character) }
         }
     }
 

@@ -12,4 +12,5 @@ sealed class HomeState : ViewState{
     data class ResultAllPersona(val data : List<Persona>): HomeState()
     data class ResultSearch(val data : List<Persona>): HomeState()
     data class Exception(val callErrors: CallErrors) : HomeState()
+    data class Details(val persona: Persona) : HomeState()
 }
